@@ -23,3 +23,6 @@
 	cordova build
 	cordova run android  (cordova run ios)
 	```
+
+## Features
+> TODO
