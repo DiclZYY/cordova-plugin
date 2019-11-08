@@ -148,4 +148,23 @@
     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
     
 }
+// added by dicl 2019/10/23 主动记录crash
+-(void)recordException:(CDVInvokedUrlCommand *)command {
+    CDVPluginResult* result= nil;
+    NSArray* args=command.arguments;
+    
+    if (args.count != 1) {
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"please pass page name"];
+    }
+    else {
+        NSString *ccExceptionMsg =  [NSString stringWithFormat:@"%@",[command argumentAtIndex:0]];
+        NSException* exception =  [NSException exceptionWithName:@"ccException" reason:ccExceptionMsg userInfo:nil];
+        // NSException* exception =  [NSException exceptionWithName:@"ccException" reason:@"%s" userInfo:nil, ccExceptionMsg];
+        // [[BaiduMobStat defaultStat] recordException:[command argumentAtIndex:0]];
+        [[BaiduMobStat defaultStat] recordException:exception];
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"success!"];
+    }
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    
+}
 @end

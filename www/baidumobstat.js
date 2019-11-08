@@ -42,5 +42,9 @@ module.exports = {
 
     onPageEnd: function(page) {
         exec(null, errorHandle, "BaiduMobStat", "onPageEnd", [page]);
+    },
+
+    recordException: function(message, successCallback) {
+        exec(successCallback, errorHandle, "BaiduMobStat", "recordException" , [message])
     }
 }

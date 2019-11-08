@@ -196,8 +196,31 @@ public class BaiduMobStat extends CordovaPlugin {
             }
 
             StatService.onPageEnd(webView.getContext(), pageName);
-        }
+        } else if ("recordException".equals(action)) {
+            // 上报自定义crash 要求SDK3.9+,added by Dicl on 2019/10/23
+            String errorMessage = "";
+            try {
+                errorMessage = args.getString(0);
+            } catch (Exception e) {
+                e.printStackTrace();
+                // TODO: handle exception
+            }
+            if (TextUtils.isEmpty(errorMessage)) {
+                callbackContext.error("error message invalid @cc");
+                return;
+            }
+            // 构造一个Throwable的异常对象 Exception或者Error类
+            Throwable ccThrowable = new Error(errorMessage);
 
+            cordova.getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("MTJ:report success");
+                    StatService.recordException(webView.getContext(), ccThrowable);
+                    callbackContext.success("OK");
+                }
+            });
+        }
     }
 
     // 将相关json进行转换为Map<String, String>, 如果类型不匹配等，则转换失败

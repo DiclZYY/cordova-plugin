@@ -1,75 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-baidumobstat" version="1.0.0"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-  
-  <name>BaiduMobStat</name>
-  <description>Cordova Baidu Mobile Analysis Plugin</description>
-  <keywords>cordova,baidu,mobile,analysis,baidumobstat</keywords>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-baidumobstat" version="1.0.0" xmlns:android="http://schemas.android.com/apk/res/android">
+	<name>
+		BaiduMobStat
+	</name>
+	<description>
+		Cordova Baidu Mobile Analysis Plugin
+	</description>
+	<keywords>
+		cordova,baidu,mobile,analysis,baidumobstat
+	</keywords>
+	<js-module src="www/BaiduMobStat.js" name="BaiduMobStat">
+		<clobbers target="BaiduMobStat" />
+	</js-module>
+	<platform name="ios">
+		<config-file target="config.xml" parent="/*">
+			<feature name="BaiduMobStat">
+				<param name="ios-package" value="CDVBaiduMobStat" />
+			</feature>
+		</config-file>
+		<header-file src="src/ios/CDVBaiduMobStat.h" />
+		<source-file src="src/ios/CDVBaiduMobStat.m" />
 
-  <js-module src="www/BaiduMobStat.js" name="BaiduMobStat">
-    <clobbers target="BaiduMobStat"/>
-  </js-module>
+		<!-- 引入百度移动统计的SDK，默认拷贝文件到iOS项目目录下的Resources目录下，经过测试需要在xcode中手动将这两个文件加入到iOS工程项目根目录，且libBaiduModeStat.a需要重名为BaiduModStat.a否则编译报找不到BaiduMobStat库-->
+		<!-- <resource-file src="libs/ios/libBaiduMobStat.a"/>
+		<resource-file src="libs/ios/BaiduMobStat.h"/> -->
 
-  <platform name="ios">
-    <config-file target="config.xml" parent="/*">
-      <feature name="BaiduMobStat">
-        <param name="ios-package" value="CDVBaiduMobStat"/>
-      </feature>
-    </config-file>
-    <header-file src="src/ios/CDVBaiduMobStat.h"/>
-    <source-file src="src/ios/CDVBaiduMobStat.m"/>
-  </platform>
+		<!-- 百度统计的依赖框架，会写入到xcode的Build Phases>Link Binary With Libraries -->
+		<framework src="Foundation.framework" />
+		<framework src="UIKit.framework" />
+		<framework src="CoreGraphics.framework" />
+		<!-- 这些framework在cordova项目已经存在 ↓ -->
+		<framework src="CoreTelephony.framework" />
+		<framework src="SystemConfiguration.framework" />
+		<framework src="CoreLocation.framework" />
+		<!-- 这些framework在cordova项目已经存在 ↑ -->
+		<framework src="Security.framework" />
+		<framework src="AdSupport.framework" />
+		<framework src="libc++.tbd" />
+		<framework src="libz.1.2.5.tbd" />
+		<framework src="libicucore.tbd" />
+		<!-- 需标记为可选 -->
+		<framework src="WebKit.framework" />
 
-  <platform name="android">
-    <framework src="src/android/plugin.gradle" custom="true" type="gradleReference"/>
-    <config-file target="config.xml" parent="/*">
-      <feature name="BaiduMobStat">
-        <param name="android-package" value="com.baidu.mobstat.BaiduMobStat"/>
-      </feature>
-    </config-file>
+		<!-- 百度统计的appkey（iOS版）和调试开关 -->
+		<config-file parent="mtj_appkey" target="*-Info.plist">
+				<string>cc317e6a4f</string>
+		</config-file>
+		<config-file parent="mtj_debuglog" target="*-Info.plist">
+				<string>0</string>
+		</config-file>
 
-    <config-file target="AndroidManifest.xml" parent="/manifest">
-        <uses-permission android:name="android.permission.INTERNET" />
-        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-        <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-        <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-        <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-        <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-        <uses-permission android:name="android.permission.GET_TASKS" />
-        <uses-permission android:name="android.permission.BLUETOOTH" />
-        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    </config-file>
-
-    <config-file target="AndroidManifest.xml" parent="/manifest/application">
-        <meta-data
-            android:name="BaiduMobAd_STAT_ID"
-            android:value="test_appkey" />
-        <meta-data
-            android:name="BaiduMobAd_CHANNEL"
-            android:value="test channel" />
-        <meta-data
-            android:name="BaiduMobAd_EXCEPTION_LOG"
-            android:value="true" />
-        <meta-data
-            android:name="BaiduMobAd_SEND_STRATEGY"
-            android:value="APP_START" />
-        <meta-data
-            android:name="BaiduMobAd_ONLY_WIFI"
-            android:value="false" />
-        <meta-data
-            android:name="BaiduMobAd_CELL_LOCATION"
-            android:value="true" />
-        <meta-data
-            android:name="BaiduMobAd_GPS_LOCATION"
-            android:value="true" />
-        <meta-data
-            android:name="BaiduMobAd_WIFI_LOCATION"
-            android:value="true" />
-    </config-file>
-
-    <source-file src="src/android/BaiduMobStat.java"
-        target-dir="src/com/baidu/mobstat"/>
-  </platform>
-
+	</platform>
+	<platform name="android">
+		<!-- 引入自定义grable -->
+		<!-- <framework src="src/android/plugin.gradle" custom="true" type="gradleReference" /> -->
+		<config-file target="config.xml" parent="/*">
+			<feature name="BaiduMobStat">
+				<param name="android-package" value="com.baidu.mobstat.BaiduMobStat" />
+			</feature>
+		</config-file>
+		<config-file target="AndroidManifest.xml" parent="/manifest">
+			<uses-permission android:name="android.permission.INTERNET" />
+			<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+			<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+			<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+			<uses-permission android:name="android.permission.WRITE_SETTINGS" />
+			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+			<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+			<uses-permission android:name="android.permission.GET_TASKS" />
+			<uses-permission android:name="android.permission.BLUETOOTH" />
+			<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+		</config-file>
+		<config-file target="AndroidManifest.xml" parent="/manifest/application">
+			 <!-- 这里配置appkey -->
+			<meta-data android:name="BaiduMobAd_STAT_ID" android:value="253b57ac19" />
+			<meta-data android:name="BaiduMobAd_CHANNEL" android:value="HIKING_APP:NHBD" />
+			<meta-data android:name="BaiduMobAd_EXCEPTION_LOG" android:value="true" />
+			<meta-data android:name="BaiduMobAd_SEND_STRATEGY" android:value="APP_START" />
+			<meta-data android:name="BaiduMobAd_ONLY_WIFI" android:value="false" />
+			<meta-data android:name="BaiduMobAd_CELL_LOCATION" android:value="true" />
+			<meta-data android:name="BaiduMobAd_GPS_LOCATION" android:value="true" />
+			<meta-data android:name="BaiduMobAd_WIFI_LOCATION" android:value="true" />
+		</config-file>
+		<source-file src="src/android/BaiduMobStat.java" target-dir="src/com/baidu/mobstat" />
+		<source-file src="libs/android/Baidu_Mtj_android_3.9.5.8.jar" target-dir="libs" />
+	</platform>
 </plugin>

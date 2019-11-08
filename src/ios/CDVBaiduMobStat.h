@@ -20,4 +20,5 @@
 -(void)onEventEndWithAttributes:(CDVInvokedUrlCommand *)command;
 -(void)onPageStart:(CDVInvokedUrlCommand *)command;
 -(void)onPageEnd:(CDVInvokedUrlCommand *)command;
+-(void)recordException:(CDVInvokedUrlCommand *)command;
 @end

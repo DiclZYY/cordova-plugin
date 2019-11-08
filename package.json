@@ -1,7 +1,35 @@
 {
-  "name": "cordova-plugin-baidumobstat",
-  "version": "1.2.3",
-  "description": "Cordova Plugin For Baidu Mobile Analysis",
+  "_from": "cordova-plugin-baidumobstat",
+  "_id": "cordova-plugin-baidumobstat@1.2.3",
+  "_inBundle": false,
+  "_integrity": "sha1-hvPu8DEp2KTNMpKZ2hf+5WprImI=",
+  "_location": "/cordova-plugin-baidumobstat",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-baidumobstat",
+    "name": "cordova-plugin-baidumobstat",
+    "escapedName": "cordova-plugin-baidumobstat",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npm.taobao.org/cordova-plugin-baidumobstat/download/cordova-plugin-baidumobstat-1.2.3.tgz",
+  "_shasum": "86f3eef03129d8a4cd329299da17fee56a6b2262",
+  "_spec": "cordova-plugin-baidumobstat",
+  "_where": "d:\\wamp64\\www\\hiking\\appcordova",
+  "author": {
+    "name": "Rurui Ye, Jie Yang"
+  },
+  "bugs": {
+    "url": "https://github.com/BaiduMobileAnalysis/cordova-plugin/issues"
+  },
+  "bundleDependencies": false,
   "cordova": {
     "id": "cordova-plugin-baidumobstat",
     "platforms": [
@@ -9,10 +37,9 @@
       "android"
     ]
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/BaiduMobileAnalysis/cordova-plugin.git"
-  },
+  "deprecated": false,
+  "description": "Cordova Plugin For Baidu Mobile Analysis",
+  "homepage": "https://github.com/BaiduMobileAnalysis/cordova-plugin#readme",
   "keywords": [
     "cordova",
     "Baidu Mobile Analysis",
@@ -21,10 +48,11 @@
     "cordova-ios",
     "cordova-android"
   ],
-  "author": "Rurui Ye, Jie Yang",
   "license": "Apache License 2.0",
-  "bugs": {
-    "url": "https://github.com/BaiduMobileAnalysis/cordova-plugin/issues"
+  "name": "cordova-plugin-baidumobstat",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BaiduMobileAnalysis/cordova-plugin.git"
   },
-  "homepage": "https://github.com/BaiduMobileAnalysis/cordova-plugin#readme"
+  "version": "1.2.3"
 }
