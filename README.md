@@ -24,5 +24,13 @@
 	cordova run android  (cordova run ios)
 	```
 
+## 2019.11.8
 ## Features
-> TODO
+
+将配置项全部放置到plugin.xml中，免去每次安装都要重新拷贝文件和添加AndroidManifest.xml配置的麻烦
+
+### iOS Quirks
+
+Download the file `libBaiduMobStat.a` which is too big had been ignored by .ignore. So you have to download it and place it in `lib\ios` directory.
+
+After test some times, the file `libBaiduMobStat.a` rename to `BaiduMobStat.a` is required.
